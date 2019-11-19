@@ -20,32 +20,31 @@ public class WordSearch {
         Scanner keyboard = new Scanner(System.in);
         int rows = 0;
         int cols = 0;
-        for(int i=0; i<2; i++) {
-            if(i==0) {
-                System.out.println("Enter the number of rows (2-15): ");
-                try {
+            System.out.println("Enter the number of rows (2-15): ");
+            if (keyboard.hasNextInt()) { //check for Int
+                rows = keyboard.nextInt();
+                while (rows < 2 || rows > 15) {
+                    System.out.println("Rows must be between 2 and 15 units long");
                     rows = keyboard.nextInt();
-                    while (rows < 2 || rows > 15) {
-                        System.out.println("Rows must be between 2 and 15 units long");
-                        rows = keyboard.nextInt();
-                    }
-                } catch (InputMismatchException e) {
-                    System.out.println("Only integers allowed.");
-                } continue;
-            }
-            if(i==1) {
-                System.out.println("Enter the number of columns (2-15): ");
-                try {
-                    cols = keyboard.nextInt();
-                    while (cols < 2 || cols > 15) {
-                        System.out.println("Columns must be between 2 and 15 units long");
-                        cols = keyboard.nextInt();
-                    }
-                } catch (InputMismatchException e) {
-                    System.out.println("Only integers allowed.");
                 }
+            } while(!keyboard.hasNextInt()){
+                System.out.println("Only integers allowed.");
+                rows = keyboard.nextInt();
             }
-        }
+
+
+            System.out.println("Enter the number of cols (2-15): ");
+            if (keyboard.hasNextInt()) { //check for Int
+                cols = keyboard.nextInt();
+                while (cols < 2 || cols > 15) {
+                    System.out.println("Columns must be between 2 and 15 units long");
+                    cols = keyboard.nextInt();
+                }
+            } else {
+                System.out.println("Only integers allowed.");
+            }
+
+
         return new int[] {rows, cols};
     }
 }
