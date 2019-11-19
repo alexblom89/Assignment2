@@ -20,41 +20,35 @@ public class WordSearch {
         Scanner keyboard = new Scanner(System.in);
         int rows = 0;
         int cols = 0;
-            System.out.println("Enter the number of rows (2-15): ");
-            if (keyboard.hasNextInt()) { //check for Int
+        do {
+            try {
+                System.out.println("Enter the number of rows (2-15): ");
                 rows = keyboard.nextInt();
-                while (rows < 2 || rows > 15) {
+                if (rows<2||rows>15) {
                     System.out.println("Rows must be between 2 and 15 units long");
-                    rows = keyboard.nextInt();
                 }
-            } while(!keyboard.hasNextInt()){
+            } catch (InputMismatchException e) {
                 System.out.println("Only integers allowed.");
-                rows = keyboard.nextInt();
+                keyboard.next();
             }
+        } while (rows < 2 || rows > 15);
 
-
-            System.out.println("Enter the number of cols (2-15): ");
-            if (keyboard.hasNextInt()) { //check for Int
+        do {
+            try {
+                System.out.println("Enter the number of cols (2-15): ");
                 cols = keyboard.nextInt();
-                while (cols < 2 || cols > 15) {
-                    System.out.println("Columns must be between 2 and 15 units long");
-                    cols = keyboard.nextInt();
+                if (cols<2||cols>15) {
+                    System.out.println("Rows must be between 2 and 15 units long");
                 }
-            } else {
+            } catch (InputMismatchException e) {
                 System.out.println("Only integers allowed.");
+                keyboard.next();
             }
+        } while (cols < 2 || cols > 15);
 
 
         return new int[] {rows, cols};
     }
 }
 
-
-
-        /*for (int x = 2; x <= columns; x++) {
-            for (int y = 2; y <= rows; y++) {
-                System.out.printf("%5d", x * y); //5 is used to create 5 spaces (formatting).
-            }
-            System.out.println();
-        } */
 
