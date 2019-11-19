@@ -46,7 +46,6 @@ public class WordSearch {
             }
         } while (cols < 2 || cols > 15);
 
-
         return new int[] {rows, cols};
     }
 }
