@@ -46,6 +46,7 @@ public class WordSearch {
 
     /**
      * method to set word list array.
+     * @return String word.
      */
     public void setWordList(){
         Scanner keyboard = new Scanner(System.in);
@@ -63,7 +64,7 @@ public class WordSearch {
     }
 
     /**
-     * This method sets a random letter in each space of the puzzle grid
+     * This method populates puzzle grid with random letters.
      * @param row rows variable from constructor
      * @param col cols variable from constructor
      */
@@ -74,13 +75,11 @@ public class WordSearch {
             for(int j=0; j<col; j++){
                 int num = (int) (Math.random() * 26) + 65;
                 grid[row-1][col-1] = (char) num;
+                System.out.print(grid[row-1][col-1]);
             }
+            System.out.println();
         }
     }
-
-    /**
-     * This method will loop over the grid and display it to the console (or return a String that can be displayed)
-     */
 }
 
 
