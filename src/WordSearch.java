@@ -1,14 +1,17 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class WordSearch {
 
     private char[][] letterArray;
-    private String[] wordList;
+    private ArrayList<String> wordList = new ArrayList<String>();
 
     WordSearch(){
 
-        letterArray = new char[15][15];
+        int rows = getDimension("rows");
+        int cols = getDimension("columns");
+        letterArray = new char[cols][rows];
 
         //put a space character in every position of the gameBoard
         for (int row=0; row<letterArray.length;row++)
@@ -16,37 +19,48 @@ public class WordSearch {
                 letterArray[row][col]=' ';
     }
 
-    public int[] getRowCol() {
+    /**
+     * Method to set # of rows and columns from user input.
+     * @return 2D array with row and column #.
+     */
+    public static int getDimension(String dimension) {
         Scanner keyboard = new Scanner(System.in);
-        int rows = 0;
-        int cols = 0;
+        int num = 0;
+
         do {
             try {
-                System.out.println("Enter the number of rows (2-15): ");
-                rows = keyboard.nextInt();
-                if (rows<2||rows>15) {
-                    System.out.println("Rows must be between 2 and 15 units long");
+                System.out.printf("Enter the number of %s (2-15): ", dimension);
+                num = keyboard.nextInt();
+                if (num<2||num>15) {
+                    System.out.printf("%s must be between 2 and 15 units long", dimension);
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Only integers allowed.");
                 keyboard.next();
             }
-        } while (rows < 2 || rows > 15);
+        } while (num < 2 || num > 15);
 
-        do {
-            try {
-                System.out.println("Enter the number of cols (2-15): ");
-                cols = keyboard.nextInt();
-                if (cols<2||cols>15) {
-                    System.out.println("Rows must be between 2 and 15 units long");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Only integers allowed.");
-                keyboard.next();
+        return num;
+    }
+
+    /**
+     * method to set word list array.
+     * @return String word.
+     */
+    public static void setWordList(){
+        int rows = getDimension(rows);
+        String word;
+
+        Scanner keyboard = new Scanner(System.in);
+
+        for(int i=rows; i<rows; i++){
+            System.out.printf("Enter a word with less than %d characters: ", cols);
+            word = keyboard.next();
+            while(word.length() > cols){
+                System.out.printf("Word must be less than %d characters.", cols);
+                word = keyboard.next();
             }
-        } while (cols < 2 || cols > 15);
-
-        return new int[] {rows, cols};
+        }
     }
 }
 
