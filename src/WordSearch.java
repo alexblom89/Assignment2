@@ -1,25 +1,23 @@
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class WordSearch {
 
     private char[][] letterArray;
-    //private ArrayList<String> wordList = new ArrayList<String>();
-
+    private String[] wordList;
 
     WordSearch(){
 
         int rows = getDimension("rows");
         int cols = getDimension("columns");
-        letterArray = new char[cols][rows];
-        String[] wordList = new String[rows];
-        wordList[rows-1] = setWordList(rows, cols);
+        letterArray = new char[rows][cols];
+        wordList = new String[rows];
+        setWordList();
+        setRandomChar(rows, cols);
 
-        //put a space character in every position of the gameBoard
-        for (rows=0; rows<letterArray.length;rows++)
-            for (cols=0;cols<letterArray[rows].length;cols++)
-                letterArray[rows][cols]=' ';
+        for (int i=0; i<wordList.length; i++)
+                System.out.printf("%s%s", wordList[i], (i<wordList.length-1)?", ":"\n");
+
     }
 
     /**
@@ -48,25 +46,41 @@ public class WordSearch {
 
     /**
      * method to set word list array.
-     * @return String word.
      */
-    public static String setWordList(int row, int col){
-        String word = null;
+    public void setWordList(){
         Scanner keyboard = new Scanner(System.in);
 
-        for(int i=row; i==row; i++){
-            System.out.printf("Enter a word with less than %d characters: ", col);
-            word = keyboard.next();
-            while(word.length() < col){
-                System.out.printf("Word must be less than %d characters.", col);
-                word = keyboard.next();
+        for(int i=0; i<wordList.length; i++){
+            int maxLength = letterArray[0].length;
+            System.out.printf("Enter a word with less than %d characters: ", maxLength);
+            wordList[i] = keyboard.next();
 
-                //Question for Jaret: should I have the array initialized in here and return type void, or create String variable
-                //and return string type into a String array in the constructor?
+            while(wordList[i].length() > maxLength){
+                System.out.printf("Word must be less than %d characters.", maxLength);
+                wordList[i] = keyboard.next();
             }
         }
-        return word;
     }
+
+    /**
+     * This method sets a random letter in each space of the puzzle grid
+     * @param row rows variable from constructor
+     * @param col cols variable from constructor
+     */
+    public static void setRandomChar(int row, int col){
+        char[][] grid = new char[row][col];
+
+        for(int i=0; i<row; i++){
+            for(int j=0; j<col; j++){
+                int num = (int) (Math.random() * 26) + 65;
+                grid[row-1][col-1] = (char) num;
+            }
+        }
+    }
+
+    /**
+     * This method will loop over the grid and display it to the console (or return a String that can be displayed)
+     */
 }
 
 
