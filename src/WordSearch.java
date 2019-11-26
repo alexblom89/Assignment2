@@ -5,18 +5,21 @@ import java.util.Scanner;
 public class WordSearch {
 
     private char[][] letterArray;
-    private ArrayList<String> wordList = new ArrayList<String>();
+    //private ArrayList<String> wordList = new ArrayList<String>();
+
 
     WordSearch(){
 
         int rows = getDimension("rows");
         int cols = getDimension("columns");
         letterArray = new char[cols][rows];
+        String[] wordList = new String[rows];
+        wordList[rows-1] = setWordList(rows, cols);
 
         //put a space character in every position of the gameBoard
-        for (int row=0; row<letterArray.length;row++)
-            for (int col=0;col<letterArray[row].length;col++)
-                letterArray[row][col]=' ';
+        for (rows=0; rows<letterArray.length;rows++)
+            for (cols=0;cols<letterArray[rows].length;cols++)
+                letterArray[rows][cols]=' ';
     }
 
     /**
@@ -47,20 +50,22 @@ public class WordSearch {
      * method to set word list array.
      * @return String word.
      */
-    public static void setWordList(){
-        int rows = getDimension(rows);
-        String word;
-
+    public static String setWordList(int row, int col){
+        String word = null;
         Scanner keyboard = new Scanner(System.in);
 
-        for(int i=rows; i<rows; i++){
-            System.out.printf("Enter a word with less than %d characters: ", cols);
+        for(int i=row; i==row; i++){
+            System.out.printf("Enter a word with less than %d characters: ", col);
             word = keyboard.next();
-            while(word.length() > cols){
-                System.out.printf("Word must be less than %d characters.", cols);
+            while(word.length() < col){
+                System.out.printf("Word must be less than %d characters.", col);
                 word = keyboard.next();
+
+                //Question for Jaret: should I have the array initialized in here and return type void, or create String variable
+                //and return string type into a String array in the constructor?
             }
         }
+        return word;
     }
 }
 
