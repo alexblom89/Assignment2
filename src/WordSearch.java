@@ -1,5 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.Formatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -54,10 +57,13 @@ public class WordSearch {
             System.out.printf("Enter a word with less than %d characters: ", maxLength);
             wordList[i] = keyboard.next().toUpperCase();
 
-            while(wordList[i].length() > maxLength){
-                System.out.printf("Word must be less than %d characters.", maxLength);
+            while(wordList[i].length() > maxLength || wordList[i].length() < 2){
+                System.out.printf("Word must be between 2 and %d characters.\n", maxLength);
+                System.out.printf("Enter a word with less than %d characters: ", maxLength);
                 wordList[i] = keyboard.next().toUpperCase();
             }
+
+
         }
     }
 
@@ -77,17 +83,28 @@ public class WordSearch {
      * convert letterArray into String
      * @return puzzle as type String
      */
-    public String convertToString(){
-        char[][] chars = letterArray;
-        StringBuilder sb = new StringBuilder();
-        for (char[] ch : chars){
-            sb.append(ch);
+    public String convertSearchToString(char[][] puzzle) {
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < puzzle.length; i++) {
+            for (int j = 0; j < puzzle[i].length; j++) {
+                s.append(puzzle[i][j]);
+                s.append("     ");
+            }
+            s.append("\n");
         }
-        return sb.toString();
+        return s.toString();
+    }
+
+    public String convertWordListToString(String[] words){
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < words.length; i++) {
+            s.append(words[i]);
+            s.append("\n");
+        }
+        return s.toString();
     }
     /**
      * method to get word search grid for printing
-     * @return word search grid as String
      */
     public void getWordSearch(){
 
@@ -120,6 +137,19 @@ public class WordSearch {
             for(int j=0;j<wordList[i].length();j++){
                 letterArray[i][j + num] = wordList[i].charAt(j);
             }
+        }
+    }
+
+    public void writeToFile() {
+            try {
+            Formatter outputFile = new Formatter("puzzle.txt");
+            outputFile.format(convertSearchToString(letterArray));
+            outputFile.format("\nThe words to find:\n");
+            outputFile.format(convertWordListToString(wordList));
+            outputFile.close();
+        }
+            catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }
