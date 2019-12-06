@@ -55,14 +55,20 @@ public class WordSearch {
         for(int i=0; i<wordList.length; i++){
             int maxLength = letterArray[0].length;
             System.out.printf("Enter a word with less than %d characters: ", maxLength);
-            wordList[i] = keyboard.next().toUpperCase();
+            wordList[i] = keyboard.next().toUpperCase().trim();
 
             while(wordList[i].length() > maxLength || wordList[i].length() < 2){
                 System.out.printf("Word must be between 2 and %d characters.\n", maxLength);
                 System.out.printf("Enter a word with less than %d characters: ", maxLength);
-                wordList[i] = keyboard.next().toUpperCase();
+                wordList[i] = keyboard.next().toUpperCase().trim();
             }
 
+            //Doesn't quite work properly...
+//            while(wordList[i].contains(" ")){
+//                System.out.println("Word must not contain spaces.\n");
+//                System.out.printf("Enter a word with less than %d characters: ", maxLength);
+//                wordList[i] = keyboard.next().toUpperCase().trim();
+//            }
 
         }
     }
@@ -81,6 +87,7 @@ public class WordSearch {
 
     /**
      * convert letterArray into String
+     * @param puzzle
      * @return puzzle as type String
      */
     public String convertSearchToString(char[][] puzzle) {
@@ -95,6 +102,11 @@ public class WordSearch {
         return s.toString();
     }
 
+    /**
+     * convert wordList into String
+     * @param words
+     * @return wordList as type String
+     */
     public String convertWordListToString(String[] words){
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < words.length; i++) {
@@ -140,6 +152,9 @@ public class WordSearch {
         }
     }
 
+    /**
+     * method to write word search grid and word list to .txt file
+     */
     public void writeToFile() {
             try {
             Formatter outputFile = new Formatter("puzzle.txt");
