@@ -1,3 +1,9 @@
+/**
+ * Author: Alex Blom, Student ID: 867295
+ * Assignment 2 - Word Search
+ * Date Submitted: 12/5/2019
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.SecureRandom;
